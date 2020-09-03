@@ -1,0 +1,59 @@
+﻿<Window x:Class="PictureSelector_Simple.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PictureSelector_Simple"
+        mc:Ignorable="d"
+        Title="Sélectionneur d'images" Height="450" Width="800" PreviewKeyDown="Window_PreviewKeyDown" Closing="Window_Closing">
+    <Window.Resources>
+        <local:SelectedImageColorConverter x:Key="SelectedImageColorConverter"/>
+    </Window.Resources>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Fichier">
+                <MenuItem Header="_Ouvrir" Click="Open_Click"/>
+                <MenuItem Header="_Sauvegarder" Click="Save_Click"/>
+                <MenuItem Header="_Exporter" Click="Export_Click"/>
+                <Separator/>
+                <MenuItem Header="_Quitter" Click="Quit_Click" />
+            </MenuItem>
+            <MenuItem Header="_Aide" Click="Aide_Click"/>
+        </Menu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="100"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="3*" MinWidth="100"/>
+            </Grid.ColumnDefinitions>
+
+            <ListBox Name="listFiles" Grid.Column="0" Margin="10,31,0,30" ItemsSource="{Binding files, UpdateSourceTrigger=PropertyChanged}" 
+                    SelectionChanged="listFiles_SelectionChanged">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Selected, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                <Setter Property="Background" Value="LightGreen"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type local:ImageInfo}">
+                        <TextBlock Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+            <GridSplitter Grid.Column="1" Width="8" Margin="0 10 0 10" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext"/>
+            <Border BorderBrush="Gray" BorderThickness="1" Grid.Column="2" Margin="0 10 10 10">
+                <Image Name="imageControl" />
+            </Border>
+            <TextBlock Text="{Binding SelectedFolder, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" Margin="10,10,0,0" VerticalAlignment="Top" />
+            <DockPanel HorizontalAlignment="Stretch" Height="20" Margin="10,0,0,10" VerticalAlignment="Bottom" Background="{Binding SelectedItem, Converter={StaticResource SelectedImageColorConverter}}">
+                <Border BorderBrush="LightGray" BorderThickness="1"/>
+            </DockPanel>
+
+        </Grid>
+    </DockPanel>
+</Window>
