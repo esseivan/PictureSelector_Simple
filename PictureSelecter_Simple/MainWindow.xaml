@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PictureSelector_Simple"
         mc:Ignorable="d"
+        FontSize="14"
         Title="Sélectionneur d'images" Height="450" Width="800" PreviewKeyDown="Window_PreviewKeyDown" Closing="Window_Closing">
     <Window.Resources>
+        <DropShadowBitmapEffect x:Key="NormalShadow" ShadowDepth="2" Softness="0.2" Opacity="0.64"/>
         <local:SelectedImageColorConverter x:Key="SelectedImageColorConverter"/>
     </Window.Resources>
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
+        <Menu DockPanel.Dock="Top" FontSize="14">
             <MenuItem Header="_Fichier">
                 <MenuItem Header="_Ouvrir" Click="Open_Click"/>
                 <MenuItem Header="_Sauvegarder" Click="Save_Click"/>
@@ -24,10 +26,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" MinWidth="100"/>
                 <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="3*" MinWidth="100"/>
+                <ColumnDefinition Width="5*" MinWidth="100"/>
             </Grid.ColumnDefinitions>
 
-            <ListBox Name="listFiles" Grid.Column="0" Margin="10,31,0,30" ItemsSource="{Binding files, UpdateSourceTrigger=PropertyChanged}" 
+            <ListBox Name="listFiles" Grid.Column="0" Margin="10,31,0,60" ItemsSource="{Binding files, UpdateSourceTrigger=PropertyChanged}" 
                     SelectionChanged="listFiles_SelectionChanged">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
@@ -50,7 +52,7 @@
                 <Image Name="imageControl" />
             </Border>
             <TextBlock Text="{Binding SelectedFolder, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" Margin="10,10,0,0" VerticalAlignment="Top" />
-            <DockPanel HorizontalAlignment="Stretch" Height="20" Margin="10,0,0,10" VerticalAlignment="Bottom" Background="{Binding SelectedItem, Converter={StaticResource SelectedImageColorConverter}}">
+            <DockPanel HorizontalAlignment="Stretch" Height="50" Margin="10,0,0,10" VerticalAlignment="Bottom" Background="{Binding SelectedItem, Converter={StaticResource SelectedImageColorConverter}}">
                 <Border BorderBrush="LightGray" BorderThickness="1"/>
             </DockPanel>
 

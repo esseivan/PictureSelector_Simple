@@ -19,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using PictureSelector_Simple;
 using st = EsseivaN.Tools.SettingManager_Fast;
 
 namespace PictureSelector_Simple
@@ -32,7 +33,6 @@ namespace PictureSelector_Simple
         public IEnumerable<string> filesPath { get => files.Select((x) => x.FileName); }
         public string SelectedFolder { get; private set; } = "Aucun fichier sélectionné";
         private string saveFileName = "pictureSelector.pssave";
-
 
         public ImageInfo SelectedItem
         {
@@ -287,7 +287,7 @@ namespace PictureSelector_Simple
             if (!(value is ImageInfo)) return new SolidColorBrush(Colors.Transparent);
 
             ImageInfo img = value as ImageInfo;
-            return img.Selected ? new SolidColorBrush(Colors.LightGreen) : new SolidColorBrush(Colors.LightCoral);
+            return img.Selected ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Crimson);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
